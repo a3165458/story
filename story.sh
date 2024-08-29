@@ -159,22 +159,26 @@ function export_validator_key() {
 }
 
 # 创建新的验证器
+# 创建新的验证器
 function create_validator() {
-    read -p "请输入质押金额（以 wei 为单位）: " AMOUNT_TO_STAKE_IN_WEI
+    read -p "请输入质押金额（以 IP 为单位）: " AMOUNT_TO_STAKE_IN_IP
+    AMOUNT_TO_STAKE_IN_WEI=$((AMOUNT_TO_STAKE_IN_IP * 1000000000000000000))
     /usr/local/bin/story validator create --stake ${AMOUNT_TO_STAKE_IN_WEI}
 }
 
 # 质押到现有验证器
 function stake_to_validator() {
     read -p "请输入验证器公钥（Base64格式）: " VALIDATOR_PUB_KEY_IN_BASE64
-    read -p "请输入质押金额（以 wei 为单位）: " AMOUNT_TO_STAKE_IN_WEI
+    read -p "请输入质押金额（以 IP 为单位）: " AMOUNT_TO_STAKE_IN_IP
+    AMOUNT_TO_STAKE_IN_WEI=$((AMOUNT_TO_STAKE_IN_IP * 1000000000000000000))
     /usr/local/bin/story validator stake --validator-pubkey ${VALIDATOR_PUB_KEY_IN_BASE64} --stake ${AMOUNT_TO_STAKE_IN_WEI}
 }
 
 # 取消质押
 function unstake_from_validator() {
     read -p "请输入验证器公钥（Base64格式）: " VALIDATOR_PUB_KEY_IN_BASE64
-    read -p "请输入取消质押金额（以 wei 为单位）: " AMOUNT_TO_UNSTAKE_IN_WEI
+    read -p "请输入取消质押金额（以 IP 为单位）: " AMOUNT_TO_UNSTAKE_IN_IP
+    AMOUNT_TO_UNSTAKE_IN_WEI=$((AMOUNT_TO_UNSTAKE_IN_IP * 1000000000000000000))
     /usr/local/bin/story validator unstake --validator-pubkey ${VALIDATOR_PUB_KEY_IN_BASE64} --unstake ${AMOUNT_TO_UNSTAKE_IN_WEI}
 }
 
@@ -182,7 +186,8 @@ function unstake_from_validator() {
 function stake_on_behalf() {
     read -p "请输入委托者公钥（Base64格式）: " DELEGATOR_PUB_KEY_IN_BASE64
     read -p "请输入验证器公钥（Base64格式）: " VALIDATOR_PUB_KEY_IN_BASE64
-    read -p "请输入质押金额（以 wei 为单位）: " AMOUNT_TO_STAKE_IN_WEI
+    read -p "请输入质押金额（以 IP 为单位）: " AMOUNT_TO_STAKE_IN_IP
+    AMOUNT_TO_STAKE_IN_WEI=$((AMOUNT_TO_STAKE_IN_IP * 1000000000000000000))
     /usr/local/bin/story validator stake-on-behalf --delegator-pubkey ${DELEGATOR_PUB_KEY_IN_BASE64} --validator-pubkey ${VALIDATOR_PUB_KEY_IN_BASE64} --stake ${AMOUNT_TO_STAKE_IN_WEI}
 }
 
@@ -190,7 +195,8 @@ function stake_on_behalf() {
 function unstake_on_behalf() {
     read -p "请输入委托者公钥（Base64格式）: " DELEGATOR_PUB_KEY_IN_BASE64
     read -p "请输入验证器公钥（Base64格式）: " VALIDATOR_PUB_KEY_IN_BASE64
-    read -p "请输入取消质押金额（以 wei 为单位）: " AMOUNT_TO_UNSTAKE_IN_WEI
+    read -p "请输入取消质押金额（以 IP 为单位）: " AMOUNT_TO_UNSTAKE_IN_IP
+    AMOUNT_TO_UNSTAKE_IN_WEI=$((AMOUNT_TO_UNSTAKE_IN_IP * 1000000000000000000))
     /usr/local/bin/story validator unstake-on-behalf --delegator-pubkey ${DELEGATOR_PUB_KEY_IN_BASE64} --validator-pubkey ${VALIDATOR_PUB_KEY_IN_BASE64} --unstake ${AMOUNT_TO_UNSTAKE_IN_WEI}
 }
 
