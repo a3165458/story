@@ -242,7 +242,7 @@ function main_menu() {
     echo "4. 设置验证器"
     echo "5. 退出"
     echo "6. 升级共识层客户端"
-    read -p "请输入选项（1-7）: " OPTION
+    read -p "请输入选项（1-6）: " OPTION
 
     case $OPTION in
     1) install_story_node ;;
