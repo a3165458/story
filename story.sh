@@ -218,6 +218,15 @@ function set_withdrawal_address() {
     /usr/local/bin/story validator set-withdrawal-address --address ${NEW_WITHDRAWAL_ADDRESS}
 }
 
+function upgrade_client() {
+pm2 stop story-client
+wget https://story-geth-binaries.s3.us-west-1.amazonaws.com/story-public/story-linux-amd64-0.10.0-9603826.tar.gz
+tar -xzf story-linux-amd64-0.10.0-9603826.tar.gz
+cp /root/story-linux-amd64-0.10.0-9603826/story /usr/local/bin
+pm2 start story-client
+pm2 logs story-client
+}
+
 # 主菜单
 function main_menu() {
     clear
@@ -232,7 +241,8 @@ function main_menu() {
     echo "3. 检查节点状态"
     echo "4. 设置验证器"
     echo "5. 退出"
-    read -p "请输入选项（1-5）: " OPTION
+    echo "6. 升级共识层客户端"
+    read -p "请输入选项（1-7）: " OPTION
 
     case $OPTION in
     1) install_story_node ;;
@@ -240,6 +250,7 @@ function main_menu() {
     3) check_status ;;
     4) setup_validator ;;
     5) exit 0 ;;
+    6) upgrade_client ;;
     *) echo "无效选项。" ;;
     esac
 }
